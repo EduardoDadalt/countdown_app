@@ -1,5 +1,8 @@
 import 'package:countdown_app/constaints/containts.dart';
+import 'package:countdown_app/homepage/controller/countdown_controller.dart';
+import 'package:countdown_app/homepage/domain/entity/countdown.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ButtonAddNewCountdown extends StatelessWidget {
   const ButtonAddNewCountdown({Key? key}) : super(key: key);
@@ -28,7 +31,9 @@ class FormToCreateCountdown extends StatefulWidget {
 }
 
 class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
+  TextEditingController titleController = TextEditingController(text: "");
   DateTime dateTime = DateTime.now();
+  TimeOfDay timeOfDay = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +49,17 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
               style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(height: 8),
+            TextField(
+              controller: titleController,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+              ),
+            ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
+                  child: OutlinedButton.icon(
                     onPressed: () async {
                       final dateTime = await showDatePicker(
                         context: context,
@@ -57,30 +69,55 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                       );
                       if (dateTime != null) {
                         setState(() {
-                          this.dateTime = dateTime;
+                          this.dateTime = DateTime(
+                            dateTime.year,
+                            dateTime.month,
+                            dateTime.day,
+                            timeOfDay.hour,
+                            timeOfDay.minute,
+                          );
                         });
                       }
                     },
-                    child: const Icon(Icons.calendar_month),
+                    icon: const Icon(Icons.calendar_month),
+                    label: const Text("Date"),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      showTimePicker(
+                  child: OutlinedButton.icon(
+                    onPressed: () async {
+                      final timeOfDay = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),
                         initialEntryMode: TimePickerEntryMode.dial,
                       );
+                      if (timeOfDay != null) {
+                        setState(() {
+                          this.timeOfDay = timeOfDay;
+                        });
+                      }
                     },
-                    child: const Icon(Icons.timelapse),
+                    icon: const Icon(Icons.access_time),
+                    label: const Text("Time"),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            ElevatedButton(onPressed: () {}, child: const Text("Add")),
+            ElevatedButton(
+              onPressed: () {
+                Provider.of<CountdownController>(context, listen: false)
+                    .addCountdown(
+                  Countdown(
+                    title: titleController.text,
+                    date: dateTime,
+                  ),
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text("Add"),
+            ),
           ],
         ),
       ),

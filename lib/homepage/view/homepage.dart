@@ -12,13 +12,12 @@ class Homepage extends StatelessWidget {
     final countdowns = Provider.of<CountdownController>(context).countdowns;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Homepage'),
+        title: const Text('Countedown App'),
       ),
       body: Column(
-        children: [
-          const Text('Homepage'),
-          ...countdowns.map((countdown) => CountdownView(countdown: countdown)),
-        ],
+        children: countdowns
+            .map((countdown) => CountdownView(countdown: countdown))
+            .toList(),
       ),
       floatingActionButton: const ButtonAddNewCountdown(),
     );

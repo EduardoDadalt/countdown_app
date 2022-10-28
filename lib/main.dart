@@ -4,6 +4,7 @@ import 'package:countdown_app/homepage/infra/datasource/local_countdown_datasour
 import 'package:countdown_app/homepage/view/homepage.dart';
 import 'package:countdown_app/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Counter App',
         theme: theme,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: const Homepage(),
       ),
     );
