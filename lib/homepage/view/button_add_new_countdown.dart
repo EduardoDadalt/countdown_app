@@ -35,6 +35,20 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
   DateTime dateTime = DateTime.now();
   TimeOfDay timeOfDay = TimeOfDay.now();
 
+  void setDateTime({DateTime? date, TimeOfDay? time}) {
+    final dateTime = date ?? this.dateTime;
+    final timeOfDay = time ?? this.timeOfDay;
+    setState(() {
+      this.dateTime = DateTime(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+        timeOfDay.hour,
+        timeOfDay.minute,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -68,15 +82,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                         lastDate: kLastDateDateTimePicker,
                       );
                       if (dateTime != null) {
-                        setState(() {
-                          this.dateTime = DateTime(
-                            dateTime.year,
-                            dateTime.month,
-                            dateTime.day,
-                            timeOfDay.hour,
-                            timeOfDay.minute,
-                          );
-                        });
+                        setDateTime(date: dateTime);
                       }
                     },
                     icon: const Icon(Icons.calendar_month),
@@ -93,9 +99,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                         initialEntryMode: TimePickerEntryMode.dial,
                       );
                       if (timeOfDay != null) {
-                        setState(() {
-                          this.timeOfDay = timeOfDay;
-                        });
+                        setDateTime(time: timeOfDay);
                       }
                     },
                     icon: const Icon(Icons.access_time),
