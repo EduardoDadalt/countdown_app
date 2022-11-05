@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:countdown_app/homepage/controller/countdown_controller.dart';
 import 'package:countdown_app/homepage/domain/entity/countdown.dart';
+import 'package:countdown_app/homepage/view/countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,10 +36,7 @@ class CountdownCard extends StatelessWidget {
                 )
               ],
             ),
-            Text(
-              countdown.toformatedDuration(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            CountdownTimer(countdown: countdown),
           ],
         ),
       ),

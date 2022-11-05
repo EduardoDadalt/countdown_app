@@ -9,7 +9,7 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Countedown App'),
+        title: const Text('Countdown App'),
       ),
       body: Column(
         children: const [

@@ -8,7 +8,7 @@ class Countdown {
 
   Duration get duration => date.difference(DateTime.now());
 
-  String toformatedDuration() {
+  String toFormattedDuration() {
     final days = duration.inDays.toString().padLeft(2, "0");
     final hours = (duration.inHours % 24).toString().padLeft(2, "0");
     final minutes = (duration.inMinutes % 60).toString().padLeft(2, "0");
