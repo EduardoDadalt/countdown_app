@@ -5,8 +5,8 @@ import 'package:countdown_app/homepage/domain/entity/countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CountdownView extends StatelessWidget {
-  const CountdownView({
+class CountdownCard extends StatelessWidget {
+  const CountdownCard({
     super.key,
     required this.countdown,
   });

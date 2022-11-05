@@ -1,6 +1,6 @@
 import 'package:countdown_app/homepage/controller/countdown_controller.dart';
 import 'package:countdown_app/homepage/domain/entity/countdown.dart';
-import 'package:countdown_app/homepage/view/countdown_view.dart';
+import 'package:countdown_app/homepage/view/countdown_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class CountdownList extends StatelessWidget {
       itemCount: countdowns.length,
       itemBuilder: (context, index) {
         final Countdown countdown = countdowns[index];
-        return CountdownView(countdown: countdown);
+        return CountdownCard(countdown: countdown);
       },
     );
   }
