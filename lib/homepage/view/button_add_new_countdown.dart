@@ -31,15 +31,16 @@ class FormToCreateCountdown extends StatefulWidget {
 }
 
 class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
-  TextEditingController titleController = TextEditingController(text: "");
-  DateTime dateTime = DateTime.now();
-  TimeOfDay timeOfDay = TimeOfDay.now();
+  final TextEditingController _titleController =
+      TextEditingController(text: "");
+  DateTime _dateTime = DateTime.now();
+  final TimeOfDay _timeOfDay = const TimeOfDay(hour: 0, minute: 0);
 
   void setDateTime({DateTime? date, TimeOfDay? time}) {
-    final dateTime = date ?? this.dateTime;
-    final timeOfDay = time ?? this.timeOfDay;
+    final dateTime = date ?? _dateTime;
+    final timeOfDay = time ?? _timeOfDay;
     setState(() {
-      this.dateTime = DateTime(
+      _dateTime = DateTime(
         dateTime.year,
         dateTime.month,
         dateTime.day,
@@ -64,7 +65,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
             ),
             const SizedBox(height: 8),
             TextField(
-              controller: titleController,
+              controller: _titleController,
               decoration: const InputDecoration(
                 labelText: 'Title',
               ),
@@ -114,8 +115,8 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                 Provider.of<CountdownController>(context, listen: false)
                     .addCountdown(
                   Countdown(
-                    title: titleController.text,
-                    date: dateTime,
+                    title: _titleController.text,
+                    date: _dateTime,
                   ),
                 );
                 Navigator.of(context).pop();
