@@ -2,6 +2,7 @@ import 'package:countdown_app/constants/constants.dart';
 import 'package:countdown_app/homepage/controller/countdown_controller.dart';
 import 'package:countdown_app/homepage/domain/entity/countdown.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ButtonAddNewCountdown extends StatelessWidget {
@@ -53,7 +54,8 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Padding(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
         padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -68,6 +70,13 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
               controller: _titleController,
               decoration: const InputDecoration(
                 labelText: 'Title',
+              ),
+            ),
+            const SizedBox(height: 8),
+            Center(
+              child: Text(
+                DateFormat("dd/M/yyyy HH:mm").format(_dateTime),
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
             const SizedBox(height: 8),
