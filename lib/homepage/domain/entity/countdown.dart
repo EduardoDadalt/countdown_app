@@ -11,9 +11,14 @@ class Countdown with _$Countdown {
     required DateTime date,
   }) = _Countdown;
 
-  Duration get duration => date.difference(DateTime.now());
+  Duration get diffDuration {
+    final now = DateTime.now();
+    if (now.isAfter(date)) return Duration.zero;
+    return date.difference(now);
+  }
 
   String toFormattedDuration() {
+    final duration = diffDuration;
     final days = duration.inDays.toString().padLeft(2, "0");
     final hours = (duration.inHours % 24).toString().padLeft(2, "0");
     final minutes = (duration.inMinutes % 60).toString().padLeft(2, "0");

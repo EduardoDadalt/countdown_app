@@ -14,29 +14,47 @@ class CountdownCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Dismissible(
+      key: ValueKey(countdown),
+      onDismissed: (_) {
+        Provider.of<CountdownController>(context, listen: false)
+            .removeCountdown(countdown);
+      },
+      background: Container(
+        color: Colors.red,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        alignment: Alignment.centerLeft,
+        child: const Icon(Icons.delete),
+      ),
+      secondaryBackground: Container(
+        color: Colors.red,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete),
+      ),
+      child: Card(
+        child: ExpansionTile(
+          title: Container(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(countdown.title,
                     style: Theme.of(context).textTheme.headline6),
-                IconButton(
-                  onPressed: () => {
-                    Provider.of<CountdownController>(context, listen: false)
-                        .removeCountdown(countdown)
-                  },
-                  icon: const Icon(Icons.delete),
-                  iconSize: 20,
-                )
+                CountdownTimer(countdown: countdown),
               ],
             ),
-            CountdownTimer(countdown: countdown),
+          ),
+          children: [
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text("Delete"),
+              onTap: () {
+                Provider.of<CountdownController>(context, listen: false)
+                    .removeCountdown(countdown);
+              },
+            )
           ],
         ),
       ),

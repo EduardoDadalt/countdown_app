@@ -22,11 +22,13 @@ class CountdownController extends ChangeNotifier {
 
   void addCountdown(Countdown countdown) {
     countdowns.add(countdown);
+    countdowns.sort((a, b) => a.date.compareTo(b.date));
     notifyListeners();
   }
 
   void removeCountdown(Countdown countdown) {
     countdowns.remove(countdown);
+    countdowns.sort((a, b) => a.date.compareTo(b.date));
     notifyListeners();
   }
 
