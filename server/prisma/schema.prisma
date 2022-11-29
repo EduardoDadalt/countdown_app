@@ -25,8 +25,9 @@ model Countdown {
 }
 
 model Category {
-  id   String @id @default(cuid())
-  name String @unique
+  id       String  @id @default(cuid())
+  name     String  @unique
+  isPublic Boolean @default(false)
 
   Countdowns Countdown[]
 }

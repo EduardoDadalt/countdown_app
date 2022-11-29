@@ -1,5 +1,6 @@
-import 'package:countdown_app/homepage/domain/entity/countdown.dart';
-import 'package:countdown_app/homepage/view/animated_number.dart';
+import 'package:countdown_app/countdown/domain/entity/countdown.dart';
+import 'package:countdown_app/countdown/view/animated_number.dart';
+
 import 'package:flutter/material.dart';
 
 class CountdownTimer extends StatelessWidget {

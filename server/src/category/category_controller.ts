@@ -5,7 +5,9 @@ import database from "../lib/database";
 
 class CategoryController {
   public static getCategories = async (req: Request, res: Response) => {
-    const categories = await database.category.findMany();
+    const categories = await database.category.findMany({
+      where: { isPublic: true },
+    });
 
     return res.status(200).json(categories);
   };
@@ -43,6 +45,7 @@ class CategoryController {
             Countdowns: {
               take: sizeOfPage,
               skip: (Number(p) - 1) * sizeOfPage,
+              where: { isPublic: true },
             },
           },
         })

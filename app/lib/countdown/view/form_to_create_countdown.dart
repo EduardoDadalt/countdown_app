@@ -1,6 +1,7 @@
 import 'package:countdown_app/constants/constants.dart';
-import 'package:countdown_app/homepage/controller/countdown_controller.dart';
-import 'package:countdown_app/homepage/domain/entity/countdown.dart';
+import 'package:countdown_app/countdown/controller/countdown_controller.dart';
+import 'package:countdown_app/countdown/domain/entity/countdown.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

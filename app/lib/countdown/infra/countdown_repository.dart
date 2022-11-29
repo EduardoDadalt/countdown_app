@@ -1,5 +1,5 @@
-import 'package:countdown_app/homepage/domain/entity/countdown.dart';
-import 'package:countdown_app/homepage/infra/datasource/i_countdown_datasource.dart';
+import 'package:countdown_app/countdown/domain/entity/countdown.dart';
+import 'package:countdown_app/countdown/infra/datasource/i_countdown_datasource.dart';
 
 class CountdownRepository {
   final CountdownDataSource _localDatasource;

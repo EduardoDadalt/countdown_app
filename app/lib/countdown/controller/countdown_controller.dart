@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:countdown_app/homepage/domain/entity/countdown.dart';
-import 'package:countdown_app/homepage/infra/countdown_repository.dart';
+import 'package:countdown_app/countdown/domain/entity/countdown.dart';
+import 'package:countdown_app/countdown/infra/countdown_repository.dart';
 import 'package:flutter/material.dart';
 
 class CountdownController extends ChangeNotifier {

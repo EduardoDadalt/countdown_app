@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^4.6.1",
@@ -13,6 +13,13 @@
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
     "prisma": "^4.6.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.3"
+  },
+  "scripts": {
+    "install": "prisma generate",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "ts-node src/index.ts"
   }
 }

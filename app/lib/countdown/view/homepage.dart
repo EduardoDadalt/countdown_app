@@ -1,5 +1,6 @@
-import 'package:countdown_app/homepage/view/button_add_new_countdown.dart';
-import 'package:countdown_app/homepage/view/list_countdowns.dart';
+import 'package:countdown_app/countdown/view/button_add_new_countdown.dart';
+import 'package:countdown_app/countdown/view/list_countdowns.dart';
+
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {

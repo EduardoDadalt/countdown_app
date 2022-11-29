@@ -1,7 +1,8 @@
-import 'package:countdown_app/homepage/controller/countdown_controller.dart';
-import 'package:countdown_app/homepage/infra/countdown_repository.dart';
-import 'package:countdown_app/homepage/infra/datasource/local_countdown_datasource.dart';
-import 'package:countdown_app/homepage/view/homepage.dart';
+import 'package:countdown_app/countdown/controller/countdown_controller.dart';
+import 'package:countdown_app/countdown/infra/countdown_repository.dart';
+import 'package:countdown_app/countdown/infra/datasource/local_countdown_datasource.dart';
+import 'package:countdown_app/countdown/view/homepage.dart';
+
 import 'package:countdown_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
