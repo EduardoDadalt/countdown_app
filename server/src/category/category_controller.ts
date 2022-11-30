@@ -33,18 +33,41 @@ class CategoryController {
     res: Response
   ) => {
     try {
-      const { id } = req.params; // Get the id of category from url
-      const { p } = req.query; // p is the page number
-      const sizeOfPage = 10; // Number of countdowns per page
+      const {
+        params: { id },
+        query: { p, size },
+      } = z
+        .object({
+          params: z.object({
+            id: z
+              .string({ required_error: "The id of category is required" })
+              .cuid("The id is not a valid cuid"),
+          }),
+          query: z.object({
+            p: z.preprocess(
+              (value) => parseInt(z.string().default("1").parse(value)),
+              z.number().int().min(1)
+            ),
+            size: z.preprocess(
+              (value) => parseInt(z.string().default("24").parse(value)),
+              z
+                .number()
+                .int()
+                .gte(1, "The size of page must be greater than 0")
+                .max(48, "The max number of countdowns is 48")
+            ),
+          }),
+        })
+        .parse(req);
       const countdowns: Countdown[] = await database.category
         .findUniqueOrThrow({
           where: {
-            id: String(id),
+            id,
           },
           select: {
             Countdowns: {
-              take: sizeOfPage,
-              skip: (Number(p) - 1) * sizeOfPage,
+              take: size,
+              skip: (p - 1) * size,
               where: { isPublic: true },
             },
           },
@@ -55,6 +78,10 @@ class CategoryController {
 
       return res.status(200).json(countdowns);
     } catch (error) {
+      console.error(error);
+      if (error instanceof z.ZodError)
+        return res.status(400).send(error.issues);
+
       return res.status(500).send("Error while getting countdowns by category");
     }
   };
