@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 router.get("/category", CategoryController.getCategories);
 router.post("/category", CategoryController.createCategory);
 router.get(
-  "/category/:id/countdonws",
+  "/category/:id/countdowns",
   CategoryController.getCountdownByCategory
 );
 
