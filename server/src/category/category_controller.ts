@@ -2,6 +2,7 @@ import { Countdown } from "@prisma/client";
 import { Request, Response } from "express";
 import { z } from "zod";
 import database from "../lib/database";
+import { schemaType } from "../router";
 
 class CategoryController {
   public static getCategories = async (req: Request, res: Response) => {
@@ -28,37 +29,31 @@ class CategoryController {
     }
   };
 
+  public static getCountdownByCategorySchema = z.object({
+    query: z.object({
+      p: z.preprocess(
+        (value) =>
+          value != undefined ? parseInt(z.string().parse(value)) : undefined,
+        z.number().min(1)
+      ),
+      size: z.preprocess(
+        (value) =>
+          value != undefined ? parseInt(z.string().parse(value)) : undefined,
+        z.number().min(1).max(48)
+      ),
+    }),
+    params: z.object({}),
+  });
   public static getCountdownByCategory = async (
     req: Request,
     res: Response
   ) => {
     try {
-      const {
-        params: { id },
-        query: { p, size },
-      } = z
-        .object({
-          params: z.object({
-            id: z
-              .string({ required_error: "The id of category is required" })
-              .cuid("The id is not a valid cuid"),
-          }),
-          query: z.object({
-            p: z.preprocess(
-              (value) => parseInt(z.string().default("1").parse(value)),
-              z.number().int().min(1)
-            ),
-            size: z.preprocess(
-              (value) => parseInt(z.string().default("24").parse(value)),
-              z
-                .number()
-                .int()
-                .gte(1, "The size of page must be greater than 0")
-                .max(48, "The max number of countdowns is 48")
-            ),
-          }),
-        })
-        .parse(req);
+      const { id } = req.params;
+      const { p, size } = req.query;
+      const page = Number(p) || 1;
+      const pageSize = Number(size) || 10;
+
       const countdowns: Countdown[] = await database.category
         .findUniqueOrThrow({
           where: {
@@ -66,8 +61,8 @@ class CategoryController {
           },
           select: {
             Countdowns: {
-              take: size,
-              skip: (p - 1) * size,
+              take: pageSize,
+              skip: (page - 1) * pageSize,
               where: { isPublic: true },
             },
           },
@@ -78,10 +73,6 @@ class CategoryController {
 
       return res.status(200).json(countdowns);
     } catch (error) {
-      console.error(error);
-      if (error instanceof z.ZodError)
-        return res.status(400).send(error.issues);
-
       return res.status(500).send("Error while getting countdowns by category");
     }
   };
