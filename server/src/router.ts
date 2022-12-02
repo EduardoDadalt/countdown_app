@@ -11,7 +11,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/category", CategoryController.getCategories);
-router.post("/category", CategoryController.createCategory);
+router.post(
+  "/category",
+  validateSchema(CategoryController.createCategorySchema),
+  CategoryController.createCategory
+);
 router.get(
   "/category/:id/countdowns",
   validateSchema(CategoryController.getCountdownByCategorySchema),

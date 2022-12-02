@@ -1,8 +1,9 @@
 import { Countdown } from "@prisma/client";
 import { Request, Response } from "express";
 import { z } from "zod";
+import { CategoryModel } from "../../prisma/zod";
 import database from "../lib/database";
-import { schemaType } from "../router";
+import { schemaType } from "../validateSchema";
 
 class CategoryController {
   public static getCategories = async (req: Request, res: Response) => {
@@ -13,10 +14,16 @@ class CategoryController {
     return res.status(200).json(categories);
   };
 
+  public static createCategorySchema: schemaType = z.object({
+    body: CategoryModel.pick({
+      name: true,
+    }),
+  });
+
   public static createCategory = async (req: Request, res: Response) => {
     try {
       const { name } = req.body;
-      z.string().min(3).max(254).parse(name);
+
       const category = await database.category.create({
         data: {
           name,
@@ -29,7 +36,7 @@ class CategoryController {
     }
   };
 
-  public static getCountdownByCategorySchema = z.object({
+  public static getCountdownByCategorySchema: schemaType = z.object({
     query: z.object({
       p: z.preprocess(
         (value) =>
