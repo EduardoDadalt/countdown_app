@@ -41,12 +41,12 @@ class CategoryController {
       p: z.preprocess(
         (value) =>
           value != undefined ? parseInt(z.string().parse(value)) : undefined,
-        z.number().min(1)
+        z.number().min(1).default(1)
       ),
       size: z.preprocess(
         (value) =>
           value != undefined ? parseInt(z.string().parse(value)) : undefined,
-        z.number().min(1).max(48)
+        z.number().min(1).max(48).default(24)
       ),
     }),
     params: z.object({}),
