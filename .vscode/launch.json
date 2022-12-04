@@ -3,14 +3,40 @@
   // Focalizar para exibir as descrições dos atributos existentes.
   // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug: Server and App",
+      "configurations": ["Launch Server", "Lauch App Debug"]
+    }
+  ],
   "configurations": [
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch Server",
       "program": "${workspaceFolder}/server/out/src/index.js",
       "preLaunchTask": "tsc: compile – server/tsconfig.json",
       "outFiles": ["${workspaceFolder}/server/out/**/*.js"]
+    },
+    {
+      "name": "Lauch App Debug",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart"
+    },
+    {
+      "name": "Lauch App Profile",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Lauch App Release",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart",
+      "flutterMode": "release"
     }
   ]
 }
