@@ -51,9 +51,6 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
               'Add new countdown',
               style: Theme.of(context).textTheme.headline5,
             ),
-            Text(
-              DateFormat("dd/M/yyyy HH:mm").format(_dateTime),
-            ),
             const SizedBox(height: 8),
             TextField(
               controller: _titleController,
@@ -78,7 +75,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                       }
                     },
                     icon: const Icon(Icons.calendar_month),
-                    label: const Text("Date"),
+                    label: Text(DateFormat.yMd().format(_dateTime)),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -95,7 +92,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
                       }
                     },
                     icon: const Icon(Icons.access_time),
-                    label: const Text("Time"),
+                    label: Text(DateFormat.Hm().format(_dateTime)),
                   ),
                 ),
               ],

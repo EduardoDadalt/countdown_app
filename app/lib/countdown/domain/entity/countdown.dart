@@ -7,6 +7,7 @@ part 'countdown.g.dart';
 class Countdown with _$Countdown {
   const Countdown._();
   const factory Countdown({
+    String? id,
     required String title,
     required DateTime date,
   }) = _Countdown;
