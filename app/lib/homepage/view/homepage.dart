@@ -11,8 +11,8 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Countdown App'),
       ),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           Expanded(
             child: CountdownList(),
           ),

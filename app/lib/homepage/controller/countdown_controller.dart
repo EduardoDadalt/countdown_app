@@ -10,12 +10,14 @@ class CountdownController extends ChangeNotifier {
   CountdownController({
     required CountdownRepository countdownRepository,
   }) : _countdownRepository = countdownRepository {
-    Timer.periodic(
-      const Duration(seconds: 1),
-      (_) {
-        notifyListeners();
-      },
-    );
+    start();
+  }
+
+  Stream<void> stream() async* {
+    do {
+      await Future.delayed(const Duration(seconds: 1));
+      yield null;
+    } while (true);
   }
 
   List<Countdown> countdowns = [];
@@ -24,12 +26,14 @@ class CountdownController extends ChangeNotifier {
     countdowns.add(countdown);
     countdowns.sort((a, b) => a.date.compareTo(b.date));
     notifyListeners();
+    save();
   }
 
   void removeCountdown(Countdown countdown) {
     countdowns.remove(countdown);
     countdowns.sort((a, b) => a.date.compareTo(b.date));
     notifyListeners();
+    save();
   }
 
   void start() async {
@@ -37,4 +41,6 @@ class CountdownController extends ChangeNotifier {
     this.countdowns = countdowns;
     notifyListeners();
   }
+
+  Future<void> save() => _countdownRepository.saveCountdowns(countdowns);
 }

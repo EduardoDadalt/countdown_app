@@ -7,4 +7,5 @@ final theme = ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(),
   ),
+  useMaterial3: true,
 );

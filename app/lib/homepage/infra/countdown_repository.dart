@@ -11,4 +11,7 @@ class CountdownRepository {
   Future<List<Countdown>> getCountdowns() {
     return _localDatasource.getCountdowns();
   }
+
+  Future<void> saveCountdowns(List<Countdown> countdowns) =>
+      _localDatasource.saveCountdowns(countdowns);
 }

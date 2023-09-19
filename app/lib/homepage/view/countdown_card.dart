@@ -41,7 +41,7 @@ class CountdownCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(countdown.title,
-                    style: Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.titleLarge),
                 CountdownTimer(countdown: countdown),
               ],
             ),

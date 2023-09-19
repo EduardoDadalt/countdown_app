@@ -48,7 +48,7 @@ class _FormToCreateCountdownState extends State<FormToCreateCountdown> {
           children: [
             Text(
               'Add new countdown',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
               DateFormat("dd/M/yyyy HH:mm").format(_dateTime),
